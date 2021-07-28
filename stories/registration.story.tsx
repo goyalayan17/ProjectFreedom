@@ -1,11 +1,15 @@
 import React from 'react';
-import { Registration } from '../src/components/RegistrationForm/Registration';
+import { Provider } from 'react-redux';
+import { Registration } from 'src/domian/registrationForm';
+import { store } from 'src/store';
 
-export default {title: 'Components/Test'}
+export default { title: 'Components/RegistrationForm' }
 
-export const RegistrationStory=(): React.ReactElement => (
+export const RegistrationStory = (): React.ReactElement => (
     <>
-         <Registration></Registration>
+        <Provider store={store()}>
+            <Registration onChange={() => { }} registrationList={[]} ></Registration>
+        </Provider>
     </>
-   
+
 );

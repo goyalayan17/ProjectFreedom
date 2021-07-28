@@ -20,27 +20,18 @@ import {
 } from "@material-ui/core";
 import * as React from "react";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { css } from "@emotion/core";
+import { IRegistrationForm } from '../interfaces';
+import { flexCss, formMarginCss, headerCss, paddingcss } from './Styles.RegistrationForm';
 
-interface IRegistrationForm {
-  firstName: string;
-  middleName: string;
-  lastName: string;
-  gender: string;
-  class: string;
+export interface IRegistrationProps {
+  onChange: (name: string, value: string | number)=> void;
+  registrationList: IRegistrationForm[];
 }
-const headerCss = css`
-  background: purple;
-`;
-const formMarginCss = css`
-  margin-top: 50px;
-`;
-const flexCss = css`
-  display: flex;
-`;
-const paddingcss=css`padding-top: 15px;`
 
-export const Registration = () => {
+export const Registration: React.FC<IRegistrationProps> =({
+  onChange, 
+  registrationList
+}: IRegistrationProps) => {
   const formDetails = {
     firstName: "",
     middleName: "",
@@ -53,10 +44,10 @@ export const Registration = () => {
   const currentindex = React.useRef<number | undefined>(undefined);
   const [openDialoge, setOpenDialoge] = React.useState(false);
   const [formValid, setFormValid] = React.useState<boolean>(true);
-  const onChangeHandler = (event: any) => {
-    const value: string = (event.target as any).value;
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value: string = event.target.value;
 
-    const name: string = (event.target as any).name;
+    const name: string = event.target.name;
     setFormDetails({ ...formData, [name]: value });
   };
   const onSubmitHandler = (event: any) => {
