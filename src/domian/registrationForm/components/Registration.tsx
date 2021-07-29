@@ -26,11 +26,13 @@ import { flexCss, formMarginCss, headerCss, paddingcss } from './Styles.Registra
 export interface IRegistrationProps {
   onChange: (name: string, value: string | number)=> void;
   registrationList: IRegistrationForm[];
+  registrationForm: IRegistrationForm;
 }
 
 export const Registration: React.FC<IRegistrationProps> =({
   onChange, 
-  registrationList
+  registrationList,
+  registrationForm
 }: IRegistrationProps) => {
   const formDetails = {
     firstName: "",
@@ -44,11 +46,13 @@ export const Registration: React.FC<IRegistrationProps> =({
   const currentindex = React.useRef<number | undefined>(undefined);
   const [openDialoge, setOpenDialoge] = React.useState(false);
   const [formValid, setFormValid] = React.useState<boolean>(true);
+  const {firstName, lastName, middleName, gender } = registrationForm;
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value: string = event.target.value;
 
     const name: string = event.target.name;
-    setFormDetails({ ...formData, [name]: value });
+    onChange(name, value);
+    //setFormDetails({ ...formData, [name]: value });
   };
   const onSubmitHandler = (event: any) => {
     if (
@@ -116,7 +120,7 @@ export const Registration: React.FC<IRegistrationProps> =({
                 {...(!formData.firstName && !formValid && { error: true })}
                 onChange={onChangeHandler}
                 name="firstName"
-                value={formData.firstName}
+                value={firstName }
                 label="First Name"                
               />
               <TextField
