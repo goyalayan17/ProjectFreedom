@@ -15,3 +15,9 @@ export const flexCss = css`
 export const paddingcss = css`
     padding-top: 15px;
 `;
+export const selectCss = css`
+  margin-top: 10px;
+`;
+export const inputWidthCss = css`
+  width: 100%;
+`;

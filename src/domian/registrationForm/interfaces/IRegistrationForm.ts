@@ -3,5 +3,5 @@ export interface IRegistrationForm {
     middleName: string;
     lastName: string;
     gender: string;
-    class: string;
+    claass: string;
   }

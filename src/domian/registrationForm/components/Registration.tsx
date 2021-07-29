@@ -8,7 +8,6 @@ import {
   FormControlLabel,
   Button,
   TableContainer,
-  Paper,
   Table,
   TableCell,
   TableHead,
@@ -20,33 +19,46 @@ import {
 } from "@material-ui/core";
 import * as React from "react";
 import { Alert, AlertTitle } from "@material-ui/lab";
-import { IRegistrationForm } from '../interfaces';
-import { flexCss, formMarginCss, headerCss, paddingcss } from './Styles.RegistrationForm';
+import { IRegistrationForm } from "../interfaces";
+import { 
+  formMarginCss,
+  headerCss,
+  paddingcss,
+  inputWidthCss,
+  selectCss,
+} from "./Styles.RegistrationForm";
 
 export interface IRegistrationProps {
-  onChange: (name: string, value: string | number)=> void;
+  onChange: (name: string, value: string | number) => void;
+  onSubmit:(registrationForm:IRegistrationForm) => void;
+  onEdit:(index: number | undefined)=> void;
   registrationList: IRegistrationForm[];
   registrationForm: IRegistrationForm;
 }
 
-export const Registration: React.FC<IRegistrationProps> =({
-  onChange, 
+export const Registration: React.FC<IRegistrationProps> = ({
+  onChange,
+  onSubmit,
+  onEdit,
   registrationList,
-  registrationForm
+  registrationForm,
 }: IRegistrationProps) => {
   const formDetails = {
     firstName: "",
     middleName: "",
     lastName: "",
     gender: "female",
-    class: "0",
+    claass: "0",
   };
   const [formData, setFormDetails] = React.useState(formDetails);
   const [arrayData, setArrayData] = React.useState<IRegistrationForm[]>([]);
   const currentindex = React.useRef<number | undefined>(undefined);
+  const deleterindex = React.useRef<number | undefined>(undefined);
   const [openDialoge, setOpenDialoge] = React.useState(false);
+  const [otherDialoge, setOtherDialoge] = React.useState(false);
   const [formValid, setFormValid] = React.useState<boolean>(true);
-  const {firstName, lastName, middleName, gender } = registrationForm;
+  const { firstName, lastName, middleName, gender , claass} = registrationForm;
+
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value: string = event.target.value;
 
@@ -55,18 +67,20 @@ export const Registration: React.FC<IRegistrationProps> =({
     //setFormDetails({ ...formData, [name]: value });
   };
   const onSubmitHandler = (event: any) => {
-    if (
-      formData.firstName &&
-      formData.lastName &&
-      formData.middleName &&
-      formData.class !== "0"
-    ) {
-      setArrayData([...arrayData, formData]);
-      setFormDetails(formDetails);
-      setFormValid(true);
-    } else {
-      setFormValid(false);
-    }
+    // if (
+    //   formData.firstName &&
+    //   formData.lastName &&
+    //   formData.middleName &&
+    //   formData.claass !== "0"
+    // ) {
+      onSubmit(registrationForm);
+//      setArrayData([...arrayData, formData]);
+//      setFormDetails(formDetails);
+//      setFormValid(true);
+//    }
+    //  else {
+    //   setFormValid(false);
+    // }
   };
   const onUpdatehandler = (event: any) => {
     setOpenDialoge(true);
@@ -90,66 +104,85 @@ export const Registration: React.FC<IRegistrationProps> =({
   };
 
   const onEditHandler = (index: number) => (event: any) => {
-    const a: IRegistrationForm = { ...arrayData[index] };
-    currentindex.current = index;
-    setFormDetails(a);
+    onEdit(index);
+    // const a: IRegistrationForm = { ...arrayData[index] };
+    // currentindex.current = index;
+    // setFormDetails(a);
   };
 
+  const otherDialogClose = () => {
+    setOtherDialoge(false);
+  };
   const onDeleteButtonClick = (index: number) => (event: any) => {
+    deleterindex.current = index;
+    setOtherDialoge(true);
+  };
+  const deleteEntryDialoge = () => {
     const a: IRegistrationForm[] = [...arrayData];
-    a.splice(index, 1);
+    a.splice(deleterindex.current!, 1);
+    deleterindex.current = undefined;
+    setOtherDialoge(false);
     setArrayData(a);
   };
   return (
     <div>
-      <Grid css={headerCss} container justifyContent="center" direction="row" item>
+      <Grid
+        css={headerCss}
+        container
+        justifyContent="center"
+        direction="row"
+        item
+      >
         <h1>STUDENT MANAGEMENT SYSTEM</h1>
       </Grid>
       {!formValid && (
         <Alert severity="error">
           <AlertTitle>Error</AlertTitle>
-          This is an error alert — <strong>check it out!</strong>
+          This is an error alert — <strong>Fill The Form!</strong>
         </Alert>
       )}
       <Grid container>
-        <Grid xs={5} item></Grid>
-        <Grid xs={2}   item>
+        <Grid lg={5} xs={4} md={5} sm={5} item></Grid>
+        <Grid lg={2} xs={4} md={3} sm={3} item>
           <form method="post" css={formMarginCss}>
             <div>
               <TextField
-                {...(!formData.firstName && !formValid && { error: true })}
+//                {...(!firstName && !formValid && { error: true })}
                 onChange={onChangeHandler}
                 name="firstName"
-                value={firstName }
-                label="First Name"                
+                value={firstName}
+                label="First Name"
+                css={inputWidthCss}
               />
               <TextField
-                {...(!formData.middleName && !formValid && { error: true })}
+//                {...(!middleName && !formValid && { error: true })}
                 onChange={onChangeHandler}
                 name="middleName"
-                value={formData.middleName}
+                value={middleName}
                 label="Middle Name"
+                css={inputWidthCss}
               />
               <TextField
-                {...(!formData.lastName && !formValid && { error: true })}
+//                {...(!lastName && !formValid && { error: true })}
                 onChange={onChangeHandler}
                 name="lastName"
-                value={formData.lastName}
+                value={lastName}
                 label="Last Name"
+                css={inputWidthCss}
               />
-              <Grid container direction="row" spacing={2} alignItems="center">
-                <Grid xs={3} item>
+              <Grid container direction="row" css={selectCss} spacing={2} alignItems="center">
+                <Grid sm={3} item>
                   <label>Class</label>
                 </Grid>
-                <Grid xs={9} item>
+                <Grid sm={9} item>
                   <Select
-                    {...(formData.class === "0" &&
-                      !formValid && { error: true })}
+//                    {...(formDetails.claass === "0" &&
+//                      !formValid && { error: true })}
                     label="Class"
                     onChange={onChangeHandler}
-                    name="class"
-                    value={formData.class}
-                    css={flexCss}
+                    name="claass"
+                    value={claass}
+                    css={inputWidthCss}
                   >
                     <MenuItem value="0">Select</MenuItem>
                     <MenuItem value="1">One</MenuItem>
@@ -165,14 +198,16 @@ export const Registration: React.FC<IRegistrationProps> =({
                   </Select>
                 </Grid>
               </Grid>
-              <Grid container alignItems="flex-start" spacing={2}>
-                <Grid css={paddingcss} item xs={3}>
-                  <label  >Gender</label>
+              <Grid container css={selectCss}>
+                <Grid css={paddingcss} item md={3}>
+                  <label>Gender</label>
                 </Grid>
-                <Grid direction="column" item xs={9}>
+                <Grid item md={2}></Grid>
+                <Grid direction="column" item md={7}>
                   <RadioGroup
                     onChange={onChangeHandler}
-                    value={formData.gender}
+                    value={gender}
+                    css={inputWidthCss}
                   >
                     <FormControlLabel
                       value="male"
@@ -193,8 +228,8 @@ export const Registration: React.FC<IRegistrationProps> =({
                   </RadioGroup>
                 </Grid>
               </Grid>
-              <Grid container spacing={7}>
-                <Grid sm={6} item>
+              <Grid container css={paddingcss} spacing={4}>
+                <Grid md={6} item>
                   {currentindex.current === undefined ? (
                     <Button
                       type="button"
@@ -213,7 +248,7 @@ export const Registration: React.FC<IRegistrationProps> =({
                     </Button>
                   )}
                 </Grid>
-                <Grid sm={6} item>
+                <Grid md={6} item>
                   <Button onClick={onCancleHandler} variant="contained">
                     Cancel
                   </Button>
@@ -222,32 +257,13 @@ export const Registration: React.FC<IRegistrationProps> =({
             </div>
           </form>
         </Grid>
-        <Grid item xs={5}></Grid>
+        <Grid item lg={5} xs={4} md={4} sm={4}></Grid>
       </Grid>
-      <Dialog
-        open={openDialoge}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {"Do you want to update form?"}
-        </DialogTitle>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            No
-          </Button>
-          <Button onClick={agreedUpdate} color="primary" autoFocus>
-            Yes
-          </Button>
-        </DialogActions>
-      </Dialog>
-
       <Grid css={formMarginCss} container>
         <Grid item xs={2}></Grid>
         <Grid item xs={8}>
-          <TableContainer component={Paper}>
-            <Table aria-label="simple table">
+          <TableContainer>
+            <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>First Name</TableCell>
@@ -259,14 +275,14 @@ export const Registration: React.FC<IRegistrationProps> =({
                 </TableRow>
               </TableHead>
               <TableBody>
-                {arrayData.length > 0 &&
-                  arrayData.map((item, index) => (
+                {registrationList?.length > 0 &&
+                  registrationList.map((item, index) => (
                     <TableRow key={index}>
                       <TableCell>{item.firstName}</TableCell>
                       <TableCell>{item.middleName}</TableCell>
                       <TableCell>{item.lastName}</TableCell>
                       <TableCell>{item.gender}</TableCell>
-                      <TableCell>{item.class}</TableCell>
+                      <TableCell>{item.claass}</TableCell>
                       <TableCell>
                         <Button onClick={onEditHandler(index)}>Edit</Button>
                         <Button onClick={onDeleteButtonClick(index)}>
@@ -281,6 +297,30 @@ export const Registration: React.FC<IRegistrationProps> =({
         </Grid>
         <Grid item xs={2}></Grid>
       </Grid>
+      {/* Update Dialoge */}
+      <Dialog open={openDialoge} onClose={handleClose}>
+        <DialogTitle>{"Do you want to update form?"}</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            No
+          </Button>
+          <Button onClick={agreedUpdate} color="primary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+      {/* Delete Dialoge */}
+      <Dialog open={otherDialoge} onClose={otherDialogClose}>
+        <DialogTitle>{"Do you want to delete entry?"}</DialogTitle>
+        <DialogActions>
+          <Button onClick={otherDialogClose} color="secondary">
+            No
+          </Button>
+          <Button onClick={deleteEntryDialoge} color="secondary" autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
