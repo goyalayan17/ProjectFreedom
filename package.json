@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "create a dashboard to learn the react-redux",
   "sideEffects": false,
-  "main": "index.js",
+  "main": "dist/public_apis.js",
+  "types": "dist/public_apis.d.ts",
   "scripts": {
     "build": "npm run export",
     "export": "npm run build-ts",

@@ -5,6 +5,7 @@ module.exports = {
         shippedProposals: true,
         modules: false,
         targets: {
+          browsers: ['last 2 versions', 'not IE <= 10'],
           node: 'current'
         }
       }
@@ -13,9 +14,9 @@ module.exports = {
     "@babel/react",
     "@emotion/babel-preset-css-prop"
   ],
-  env:{
-    development: { 
-      plugins:[['@emotion',{sourceMap: true}]]
+  env: {
+    development: {
+      plugins: [['@emotion', { sourceMap: true }]]
     }
   }
 };
