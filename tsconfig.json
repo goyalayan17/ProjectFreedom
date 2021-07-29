@@ -2,9 +2,9 @@
     "compileOnSave": false,
     "compilerOptions": {
         "module": "esnext",
-        "target": "ES5",
+        "target": "es5",
         "baseUrl": ".",
-        "lib": ["ES2015","DOM","ES2018.Promise"],
+        "lib": ["es2015","dom","es2018.promise"],
         "sourceMap": true,
         "jsx": "react-jsx",
         "jsxImportSource": "@emotion/react",
@@ -12,6 +12,7 @@
         "moduleResolution": "node",
         "rootDirs": ["src/", "stories/"],
         "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "noImplicitReturns": true,
         "noImplicitThis": false,
@@ -19,7 +20,9 @@
         "strictNullChecks": true,
         "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": false,
-        "esModuleInterop": true
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "outDir": "dist"
     },
     "include": ["src","stories"]
 }
