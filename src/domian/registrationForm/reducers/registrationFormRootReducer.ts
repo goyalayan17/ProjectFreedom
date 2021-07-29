@@ -8,7 +8,13 @@ export const registrationFormRootReducer:(state: IRegistrationFormInfo, action: 
 )=>{
     switch(action.type) {
         case REGISTRATION_FORM_ADD:
-            return { list: [...state.list, action.payload]} as IRegistrationFormInfo;
+            return {
+                ...state, 
+                registrationForm:{
+                    ...state.registrationForm,
+                    [action.payload.name]: action.payload.value
+                }     
+            };
         default:
             return state;
     }
