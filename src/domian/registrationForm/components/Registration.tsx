@@ -32,6 +32,8 @@ export interface IRegistrationProps {
   onChange: (name: string, value: string | number) => void;
   onSubmit:(registrationForm:IRegistrationForm) => void;
   onEdit:(index: number | undefined)=> void;
+  onAgreeUpdate:(index: number | undefined)=> void;
+  onDelete:(index:number | undefined)=> void;
   registrationList: IRegistrationForm[];
   registrationForm: IRegistrationForm;
 }
@@ -40,6 +42,8 @@ export const Registration: React.FC<IRegistrationProps> = ({
   onChange,
   onSubmit,
   onEdit,
+  onAgreeUpdate,
+  onDelete,
   registrationList,
   registrationForm,
 }: IRegistrationProps) => {
@@ -60,38 +64,39 @@ export const Registration: React.FC<IRegistrationProps> = ({
   const { firstName, lastName, middleName, gender , claass} = registrationForm;
 
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const value: string = event.target.value;
-
-    const name: string = event.target.name;
+   const value: string = event.target.value;
+   const name: string = event.target.name;
     onChange(name, value);
     //setFormDetails({ ...formData, [name]: value });
   };
   const onSubmitHandler = (event: any) => {
-    // if (
-    //   formData.firstName &&
-    //   formData.lastName &&
-    //   formData.middleName &&
-    //   formData.claass !== "0"
-    // ) {
+    if (
+      firstName &&
+      lastName &&
+      middleName &&
+      claass !== "0"
+    ) {
       onSubmit(registrationForm);
 //      setArrayData([...arrayData, formData]);
 //      setFormDetails(formDetails);
-//      setFormValid(true);
-//    }
-    //  else {
-    //   setFormValid(false);
-    // }
+     setFormValid(true);
+   }
+     else {
+      setFormValid(false);
+    }
   };
   const onUpdatehandler = (event: any) => {
     setOpenDialoge(true);
   };
   const agreedUpdate = (event: any) => {
-    const a: IRegistrationForm[] = [...arrayData];
-    a.splice(currentindex.current!, 1, formData);
-    currentindex.current = undefined;
-    setArrayData(a);
-    setOpenDialoge(false);
-    setFormDetails(formDetails);
+
+    onAgreeUpdate(currentindex.current);
+    // const a: IRegistrationForm[] = [...arrayData];
+    // a.splice(currentindex.current!, 1, formData);
+     currentindex.current = undefined;
+    // setArrayData(a);
+     setOpenDialoge(false);
+    // setFormDetails(formDetails);
   };
 
   const handleClose = () => {
@@ -100,13 +105,14 @@ export const Registration: React.FC<IRegistrationProps> = ({
 
   const onCancleHandler = () => {
     currentindex.current = undefined;
-    setFormDetails(formDetails);
+//    onCancle();
+//...    setFormDetails(formDetails);
   };
 
   const onEditHandler = (index: number) => (event: any) => {
     onEdit(index);
     // const a: IRegistrationForm = { ...arrayData[index] };
-    // currentindex.current = index;
+     currentindex.current = index;
     // setFormDetails(a);
   };
 
@@ -118,11 +124,13 @@ export const Registration: React.FC<IRegistrationProps> = ({
     setOtherDialoge(true);
   };
   const deleteEntryDialoge = () => {
-    const a: IRegistrationForm[] = [...arrayData];
-    a.splice(deleterindex.current!, 1);
+
+    onDelete(deleterindex.current);
+    // const a: IRegistrationForm[] = [...arrayData];
+    // a.splice(deleterindex.current!, 1);
     deleterindex.current = undefined;
     setOtherDialoge(false);
-    setArrayData(a);
+    // setArrayData(a);
   };
   return (
     <div>
@@ -147,7 +155,7 @@ export const Registration: React.FC<IRegistrationProps> = ({
           <form method="post" css={formMarginCss}>
             <div>
               <TextField
-//                {...(!firstName && !formValid && { error: true })}
+               {...(!firstName && !formValid && { error: true })}
                 onChange={onChangeHandler}
                 name="firstName"
                 value={firstName}
@@ -155,7 +163,7 @@ export const Registration: React.FC<IRegistrationProps> = ({
                 css={inputWidthCss}
               />
               <TextField
-//                {...(!middleName && !formValid && { error: true })}
+               {...(!middleName && !formValid && { error: true })}
                 onChange={onChangeHandler}
                 name="middleName"
                 value={middleName}
@@ -163,21 +171,21 @@ export const Registration: React.FC<IRegistrationProps> = ({
                 css={inputWidthCss}
               />
               <TextField
-//                {...(!lastName && !formValid && { error: true })}
+               {...(!lastName && !formValid && { error: true })}
                 onChange={onChangeHandler}
                 name="lastName"
                 value={lastName}
                 label="Last Name"
                 css={inputWidthCss}
               />
-              <Grid container direction="row" css={selectCss} spacing={2} alignItems="center">
+              <Grid container direction="row" css={selectCss}  spacing={2} alignItems="center">
                 <Grid sm={3} item>
                   <label>Class</label>
                 </Grid>
                 <Grid sm={9} item>
                   <Select
-//                    {...(formDetails.claass === "0" &&
-//                      !formValid && { error: true })}
+                   {...(formDetails.claass === "0" &&
+                     !formValid && { error: true })}
                     label="Class"
                     onChange={onChangeHandler}
                     name="claass"

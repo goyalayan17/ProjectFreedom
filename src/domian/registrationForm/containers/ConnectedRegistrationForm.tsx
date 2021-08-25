@@ -1,6 +1,6 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { connect } from "react-redux";
-import { registrationEditAction, registrationFormAction, registrationListAction } from "../actions";
+import { registrationDeleteAction, registrationEditAction, registrationFormAction, registrationListAction, registrationUpdateAction } from "../actions";
 import { Registration } from "../components";
 import { IRegistrationForm, IRegistrationFormGlobalState } from "../interfaces";
 import { getRegistrationFormInfo } from "../selectors";
@@ -15,6 +15,8 @@ interface IDispatchProps {
     onChange:(name: string, value: string | number)=> void;
     onSubmit:(registrationForm:IRegistrationForm)=> void;
     onEdit:(index: number | undefined)=> void;
+    onAgreeUpdate:(index: number | undefined)=> void;
+    onDelete:(index: number | undefined) => void;
 };
 
 
@@ -35,7 +37,13 @@ const mapDispatchToProps = (dispatch: Dispatch): IDispatchProps => ({
         dispatch(registrationListAction({registrationForm})),
 
     onEdit:(index: number | undefined)=>
-        dispatch(registrationEditAction({index}))
+        dispatch(registrationEditAction({index})),
+
+    onAgreeUpdate:(index:number | undefined)=>
+        dispatch(registrationUpdateAction({index})),
+
+    onDelete:(index:number | undefined)=>
+        dispatch(registrationDeleteAction({index}))
 });
 
 export const ConnectedRegistrationForm = connect(mapStateFromProps, mapDispatchToProps)(Registration);
