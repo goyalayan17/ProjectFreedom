@@ -21,7 +21,7 @@
       "!src/public_apis.ts",
       "!src/{domain}/index.ts"
     ],
-    "coverageDirectory": "coverge",
+    "coverageDirectory": "coverage",
     "coverageReporters": [
       "json",
       "cobertura",
