@@ -27,7 +27,7 @@ module.exports = {
           runtime: 'automatic'
         }]
       ],
-      plugins: ['@babel/plugin-proposal-class-properties', 'transform-es2015-modules-commonjs']
+      plugins: ['@babel/plugin-proposal-class-properties']
 
     },
     development: {
