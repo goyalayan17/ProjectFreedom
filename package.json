@@ -10,12 +10,24 @@
     "build": "npm run export",
     "export": "npm run build-ts",
     "build-ts": "node_modules/.bin/ttsc -p tsconfig.json --outDir dist",
-    "test": "node scripts/test.js --env=jest-environment-jsdom",
+    "test": "node scripts/test.js --env=jest-environment-jsdom --coverage",
     "storybook": "start-storybook -p 9001"
   },
   "author": "Ayan Goyal",
   "license": "ISC",
   "jest": {
+    "collectCoverageFrom":[
+      "src/**/*.{ts,tsx}",
+      "!src/public_apis.ts",
+      "!src/{domain}/index.ts"
+    ],
+    "coverageDirectory": "coverge",
+    "coverageReporters": [
+      "json",
+      "cobertura",
+      "lcov",
+      "text"
+    ],
     "globals": {
       "ts-jest": {
         "diagnostics": false,
