@@ -2,12 +2,15 @@ import { BaseAction } from "src/domian/common";
 import {
   REGISTRATION_FORM_ADD,
   REGISTRATION_FORM_DELETE,
+  REGISTRATION_FORM_DETAILS_SUCESS,
   REGISTRATION_FORM_EDIT,
+  REGISTRATION_FORM_EMPTY,
   REGISTRATION_FORM_UPDATE,
 } from "../actions";
 import { REGISTRATION_FORM_SUBMIT } from "../actions";
 import { IRegistrationFormInfo } from "../interfaces";
 const defaultRegistrationFormValue = {
+  id:undefined,
   firstName: "",
   middleName: "",
   lastName: "",
@@ -27,33 +30,22 @@ export const registrationFormRootReducer: (
           [action.payload.name]: action.payload.value,
         },
       };
-    case REGISTRATION_FORM_SUBMIT:
-      return {
-        ...state,
-        list: [...(state.list ?? []), action.payload.registrationForm],
-        registrationForm: defaultRegistrationFormValue,
-      };
     case REGISTRATION_FORM_EDIT:
       return {
         ...state,
-        registrationForm: state.list[action.payload.index],
+        registrationForm: state.list[state.list.findIndex((ele)=>ele.id===action.payload.index)],
       };
-    case REGISTRATION_FORM_UPDATE: {
-      const list = [...state.list];
-      list.splice(action.payload.index, 1);
+    case REGISTRATION_FORM_EMPTY:{
+      return{
+        ...state,
+        registrationForm:defaultRegistrationFormValue
+      }
+    }
+    case REGISTRATION_FORM_DETAILS_SUCESS:{
       return {
         ...state,
-        list: [...list, state.registrationForm],
-        registrationForm:defaultRegistrationFormValue
-      };
-    }
-    case REGISTRATION_FORM_DELETE:{
-        const dellist=[...state.list];
-        dellist.splice(action.payload.index,1);
-        return{
-            ...state,
-            list:[...dellist],
-        }
+        list:action.payload
+      }
     }
     default:
       return state.registrationForm

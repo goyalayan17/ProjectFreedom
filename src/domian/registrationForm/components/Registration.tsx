@@ -32,8 +32,10 @@ export interface IRegistrationProps {
   onChange: (name: string, value: string | number) => void;
   onSubmit:(registrationForm:IRegistrationForm) => void;
   onEdit:(index: number | undefined)=> void;
-  onAgreeUpdate:(index: number | undefined)=> void;
+  onAgreeUpdate:(index: number | undefined,registrationForm:IRegistrationForm)=> void;
   onDelete:(index:number | undefined)=> void;
+  getRegistrationDetails:()=>void;
+  onCancle:()=>void;
   registrationList: IRegistrationForm[];
   registrationForm: IRegistrationForm;
 }
@@ -44,41 +46,42 @@ export const Registration: React.FC<IRegistrationProps> = ({
   onEdit,
   onAgreeUpdate,
   onDelete,
+  onCancle,
   registrationList,
   registrationForm,
+  getRegistrationDetails
 }: IRegistrationProps) => {
   const formDetails = {
+    id:undefined,
     firstName: "",
     middleName: "",
     lastName: "",
     gender: "female",
     claass: "0",
   };
-  const [formData, setFormDetails] = React.useState(formDetails);
-  const [arrayData, setArrayData] = React.useState<IRegistrationForm[]>([]);
   const currentindex = React.useRef<number | undefined>(undefined);
   const deleterindex = React.useRef<number | undefined>(undefined);
   const [openDialoge, setOpenDialoge] = React.useState(false);
   const [otherDialoge, setOtherDialoge] = React.useState(false);
   const [formValid, setFormValid] = React.useState<boolean>(true);
   const { firstName, lastName, middleName, gender , claass} = registrationForm;
-
+  React.useEffect(()=>{
+      getRegistrationDetails();
+  },[]);
   const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
    const value: string = event.target.value;
    const name: string = event.target.name;
     onChange(name, value);
-    //setFormDetails({ ...formData, [name]: value });
   };
-  const onSubmitHandler = (event: any) => {
+  const onSubmitHandler = async(event: any) => {
     if (
       firstName &&
       lastName &&
       middleName &&
       claass !== "0"
     ) {
-      onSubmit(registrationForm);
-//      setArrayData([...arrayData, formData]);
-//      setFormDetails(formDetails);
+      await onSubmit(registrationForm);
+      getRegistrationDetails();
      setFormValid(true);
    }
      else {
@@ -88,15 +91,12 @@ export const Registration: React.FC<IRegistrationProps> = ({
   const onUpdatehandler = (event: any) => {
     setOpenDialoge(true);
   };
-  const agreedUpdate = (event: any) => {
+  const agreedUpdate = async(event: any) => {
 
-    onAgreeUpdate(currentindex.current);
-    // const a: IRegistrationForm[] = [...arrayData];
-    // a.splice(currentindex.current!, 1, formData);
+    await onAgreeUpdate(currentindex.current,registrationForm);
+    getRegistrationDetails();
      currentindex.current = undefined;
-    // setArrayData(a);
      setOpenDialoge(false);
-    // setFormDetails(formDetails);
   };
 
   const handleClose = () => {
@@ -105,32 +105,27 @@ export const Registration: React.FC<IRegistrationProps> = ({
 
   const onCancleHandler = () => {
     currentindex.current = undefined;
-//    onCancle();
-//...    setFormDetails(formDetails);
+    onCancle();
   };
 
-  const onEditHandler = (index: number) => (event: any) => {
+  const onEditHandler = (index: number | undefined) => (event: any) => {
     onEdit(index);
-    // const a: IRegistrationForm = { ...arrayData[index] };
      currentindex.current = index;
-    // setFormDetails(a);
   };
 
   const otherDialogClose = () => {
     setOtherDialoge(false);
   };
-  const onDeleteButtonClick = (index: number) => (event: any) => {
+  const onDeleteButtonClick = (index: number | undefined) => (event: any) => {
     deleterindex.current = index;
     setOtherDialoge(true);
   };
-  const deleteEntryDialoge = () => {
+  const deleteEntryDialoge = async() => {
 
-    onDelete(deleterindex.current);
-    // const a: IRegistrationForm[] = [...arrayData];
-    // a.splice(deleterindex.current!, 1);
+    await onDelete(deleterindex.current);
+    getRegistrationDetails();
     deleterindex.current = undefined;
     setOtherDialoge(false);
-    // setArrayData(a);
   };
   return (
     <div>
@@ -231,8 +226,6 @@ export const Registration: React.FC<IRegistrationProps> = ({
                       label="Female"
                       labelPlacement="end"
                     />
-                    {/* <span>Male</span><Radio value="male" /> 
-                    <span>Female</span><Radio value="female" />  */}
                   </RadioGroup>
                 </Grid>
               </Grid>
@@ -285,15 +278,15 @@ export const Registration: React.FC<IRegistrationProps> = ({
               <TableBody>
                 {registrationList?.length > 0 &&
                   registrationList.map((item, index) => (
-                    <TableRow key={index}>
+                    <TableRow key={`tableRow_${index}`}>
                       <TableCell>{item.firstName}</TableCell>
                       <TableCell>{item.middleName}</TableCell>
                       <TableCell>{item.lastName}</TableCell>
                       <TableCell>{item.gender}</TableCell>
                       <TableCell>{item.claass}</TableCell>
                       <TableCell>
-                        <Button onClick={onEditHandler(index)}>Edit</Button>
-                        <Button onClick={onDeleteButtonClick(index)}>
+                        <Button onClick={onEditHandler(item.id)}>Edit</Button>
+                        <Button onClick={onDeleteButtonClick(item.id)}>
                           Delete
                         </Button>
                       </TableCell>
@@ -305,7 +298,6 @@ export const Registration: React.FC<IRegistrationProps> = ({
         </Grid>
         <Grid item xs={2}></Grid>
       </Grid>
-      {/* Update Dialoge */}
       <Dialog open={openDialoge} onClose={handleClose}>
         <DialogTitle>{"Do you want to update form?"}</DialogTitle>
         <DialogActions>
@@ -317,7 +309,6 @@ export const Registration: React.FC<IRegistrationProps> = ({
           </Button>
         </DialogActions>
       </Dialog>
-      {/* Delete Dialoge */}
       <Dialog open={otherDialoge} onClose={otherDialogClose}>
         <DialogTitle>{"Do you want to delete entry?"}</DialogTitle>
         <DialogActions>

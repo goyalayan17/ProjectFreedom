@@ -3,19 +3,22 @@ import { IRegistrationFormDetailsRequestAction, registrationFormDetailSucess } f
 import { IRegistrationForm } from "../interfaces";
 import { RegistrationFormService } from "../services";
 
-async function getRegistrationDetails(): Promise<IRegistrationForm[]> {
+async function deleteRegistrationDetails(payload){
     const registrationFormService: RegistrationFormService = new RegistrationFormService();
-    return registrationFormService.getRegistrationFormDetails();
+    return registrationFormService.deleteRegistrationFormDetails(payload);
 };
 
-export default function* getRegistrationInfo(
+export default function* deleteRegistrationInfo(
     action: IRegistrationFormDetailsRequestAction,
-    getRegistrationDetailsHandler: () => Promise<IRegistrationForm[]> = getRegistrationDetails
+    deleteRegistrationDetailsHandler = deleteRegistrationDetails,
+    
 ) {
+    let temp=action.payload;
     try {
-        const result = yield call(getRegistrationDetailsHandler);
-        yield put(registrationFormDetailSucess(result));
+         yield call(deleteRegistrationDetailsHandler,temp);
     } catch (e) {
 
     }
 };
+
+
