@@ -147,13 +147,13 @@ export const Registration: React.FC<IRegistrationProps> = ({
       <Grid container>
         <Grid lg={5} xs={4} md={5} sm={5} item></Grid>
         <Grid lg={2} xs={4} md={3} sm={3} item>
-          <form method="post" css={formMarginCss}>
+          <form id="registrationForm" method="post" css={formMarginCss}>
             <div>
               <TextField
                {...(!firstName && !formValid && { error: true })}
                 onChange={onChangeHandler}
                 name="firstName"
-                value={firstName}
+                value={firstName || ''}
                 label="First Name"
                 css={inputWidthCss}
               />
@@ -161,7 +161,7 @@ export const Registration: React.FC<IRegistrationProps> = ({
                {...(!middleName && !formValid && { error: true })}
                 onChange={onChangeHandler}
                 name="middleName"
-                value={middleName}
+                value={middleName || ''}
                 label="Middle Name"
                 css={inputWidthCss}
               />
@@ -169,7 +169,7 @@ export const Registration: React.FC<IRegistrationProps> = ({
                {...(!lastName && !formValid && { error: true })}
                 onChange={onChangeHandler}
                 name="lastName"
-                value={lastName}
+                value={lastName || ''}
                 label="Last Name"
                 css={inputWidthCss}
               />
@@ -184,7 +184,7 @@ export const Registration: React.FC<IRegistrationProps> = ({
                     label="Class"
                     onChange={onChangeHandler}
                     name="claass"
-                    value={claass || ''}
+                    value={claass || '0'}
                     css={inputWidthCss}
                   >
                     <MenuItem value="0">Select</MenuItem>
@@ -208,8 +208,9 @@ export const Registration: React.FC<IRegistrationProps> = ({
                 <Grid item md={2}></Grid>
                 <Grid container direction="column" item md={7}>
                   <RadioGroup
+                    id="genderRadioGroup"
                     onChange={onChangeHandler}
-                    value={gender}
+                    value={gender || 'male'}
                     css={inputWidthCss}
                   >
                     <FormControlLabel
@@ -233,6 +234,7 @@ export const Registration: React.FC<IRegistrationProps> = ({
                 <Grid md={6} item>
                   {currentindex.current === undefined ? (
                     <Button
+                      id="submitRegistrationForm"
                       type="button"
                       onClick={onSubmitHandler}
                       variant="contained"
@@ -241,6 +243,7 @@ export const Registration: React.FC<IRegistrationProps> = ({
                     </Button>
                   ) : (
                     <Button
+                    id="updateButton"
                       type="button"
                       onClick={onUpdatehandler}
                       variant="contained"
@@ -250,7 +253,7 @@ export const Registration: React.FC<IRegistrationProps> = ({
                   )}
                 </Grid>
                 <Grid md={6} item>
-                  <Button onClick={onCancleHandler} variant="contained">
+                  <Button id="cancelButton" onClick={onCancleHandler} variant="contained">
                     Cancel
                   </Button>
                 </Grid>
@@ -278,15 +281,15 @@ export const Registration: React.FC<IRegistrationProps> = ({
               <TableBody>
                 {registrationList?.length > 0 &&
                   registrationList.map((item, index) => (
-                    <TableRow key={`tableRow_${index}`}>
-                      <TableCell>{item.firstName}</TableCell>
-                      <TableCell>{item.middleName}</TableCell>
-                      <TableCell>{item.lastName}</TableCell>
-                      <TableCell>{item.gender}</TableCell>
-                      <TableCell>{item.claass}</TableCell>
+                    <TableRow id={`table_${index}`}  key={index}>
+                      <TableCell id={`tableFirstName_${index}`}>{item.firstName}</TableCell>
+                      <TableCell id={`tableMiddleName_${index}`}>{item.middleName}</TableCell>
+                      <TableCell  id={`tableLastName_${index}`}>{item.lastName}</TableCell>
+                      <TableCell  id={`tableGenderName_${index}`}>{item.gender}</TableCell>
+                      <TableCell  id={`tableClassName_${index}`}>{item.claass}</TableCell>
                       <TableCell>
-                        <Button onClick={onEditHandler(item.id)}>Edit</Button>
-                        <Button onClick={onDeleteButtonClick(item.id)}>
+                        <Button id={`editButton_${index}`} onClick={onEditHandler(index)}>Edit</Button>
+                        <Button id={`deleteButton_${index}`} onClick={onDeleteButtonClick(index)}>
                           Delete
                         </Button>
                       </TableCell>
@@ -298,24 +301,26 @@ export const Registration: React.FC<IRegistrationProps> = ({
         </Grid>
         <Grid item xs={2}></Grid>
       </Grid>
-      <Dialog open={openDialoge} onClose={handleClose}>
+      {/* Update Dialoge */}
+      <Dialog id="updateDialogConfirm" open={openDialoge} onClose={handleClose}>
         <DialogTitle>{"Do you want to update form?"}</DialogTitle>
         <DialogActions>
-          <Button onClick={handleClose} color="primary">
+          <Button id="updateDialogCancelButton" onClick={handleClose} color="primary">
             No
           </Button>
-          <Button onClick={agreedUpdate} color="primary" autoFocus>
+          <Button id="updateConfirmButton" onClick={agreedUpdate} color="primary" autoFocus>
             Yes
           </Button>
         </DialogActions>
       </Dialog>
-      <Dialog open={otherDialoge} onClose={otherDialogClose}>
+      {/* Delete Dialoge */}
+      <Dialog id="deleteDialog" open={otherDialoge} onClose={otherDialogClose}>
         <DialogTitle>{"Do you want to delete entry?"}</DialogTitle>
         <DialogActions>
-          <Button onClick={otherDialogClose} color="secondary">
+          <Button id="deleteDialogCancel" onClick={otherDialogClose} color="secondary">
             No
           </Button>
-          <Button onClick={deleteEntryDialoge} color="secondary" autoFocus>
+          <Button id="deleteButtonConfirm" onClick={deleteEntryDialoge} color="secondary" autoFocus>
             Yes
           </Button>
         </DialogActions>

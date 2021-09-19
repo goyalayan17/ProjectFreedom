@@ -16,7 +16,7 @@
   "author": "Ayan Goyal",
   "license": "ISC",
   "jest": {
-    "collectCoverageFrom":[
+    "collectCoverageFrom": [
       "src/**/*.{ts,tsx}",
       "!src/public_apis.ts",
       "!src/{domain}/index.ts"
