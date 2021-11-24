@@ -11,6 +11,8 @@ const mockOnSubmit: jest.Mock<any> = jest.fn();
 const mockOnEdit: jest.Mock<any> = jest.fn(() => 1);
 const mockOnAgreeUpdate: jest.Mock<any> = jest.fn(()=> 1);
 const mockOnDelete: jest.Mock<any> = jest.fn(()=> 1);
+const mockGetRegistrationDetails: jest.Mock<any> = jest.fn();
+const mockOnCancel: jest.Mock<any> = jest.fn();
 
 const props: IRegistrationProps = {
     onChange: mockOnChange,
@@ -19,7 +21,10 @@ const props: IRegistrationProps = {
     onAgreeUpdate: mockOnAgreeUpdate,
     onDelete: mockOnDelete,
     registrationList: [],
-    registrationForm: {} as IRegistrationForm
+    registrationForm: {} as IRegistrationForm,
+    getRegistrationDetails: mockGetRegistrationDetails,
+    onCancle: mockOnCancel
+
 };
 
 describe('<RegistrationForm> tests', () => {
@@ -96,7 +101,8 @@ describe('<RegistrationForm> tests', () => {
             middleName: "middle",
             lastName: "name",
             gender: "female",
-            claass: "3"
+            claass: "3",
+            id: 0
         };
         const wrapper = mount(<Registration {...props} registrationForm={registrationForm} />);
 
@@ -112,7 +118,8 @@ describe('<RegistrationForm> tests', () => {
             middleName: "middle",
             lastName: "name",
             gender: "female",
-            claass: "3"
+            claass: "3",
+            id: 0
         };
         const wrapper = mount(<Registration {...props} registrationForm={registrationForm} />);
 
@@ -128,7 +135,8 @@ describe('<RegistrationForm> tests', () => {
             middleName: "",
             lastName: "name",
             gender: "female",
-            claass: "3"
+            claass: "3",
+            id: 0
         };
         const wrapper = mount(<Registration {...props} registrationForm={registrationForm} />);
 
@@ -144,7 +152,8 @@ describe('<RegistrationForm> tests', () => {
             middleName: "middle",
             lastName: "",
             gender: "female",
-            claass: "3"
+            claass: "3",
+            id: 0
         };
         const wrapper = mount(<Registration {...props} registrationForm={registrationForm} />);
 
@@ -160,7 +169,8 @@ describe('<RegistrationForm> tests', () => {
             middleName: "middle",
             lastName: "name",
             gender: "female",
-            claass: "0"
+            claass: "0",
+            id: 0
         };
         const wrapper = mount(<Registration {...props} registrationForm={registrationForm} />);
 
@@ -176,13 +186,15 @@ describe('<RegistrationForm> tests', () => {
             middleName: "middle",
             lastName: "name",
             gender: "female",
-            claass: "3"
+            claass: "3",
+            id: 0
         }, {
             firstName: "test1",
             middleName: "middle1",
             lastName: "name1",
             gender: "male",
-            claass: "4"
+            claass: "4",
+            id: 1
         }];
         const wrapper = mount(<Registration {...props} registrationList={registrationList} />);
         wrapper.find('button#editButton_1').simulate('click',);
@@ -214,13 +226,15 @@ describe('<RegistrationForm> tests', () => {
             middleName: "middle",
             lastName: "name",
             gender: "female",
-            claass: "3"
+            claass: "3",
+            id: 0
         }, {
             firstName: "test1",
             middleName: "middle1",
             lastName: "name1",
             gender: "male",
-            claass: "4"
+            claass: "4",
+            id: 1
         }];
         const wrapper = mount(<Registration {...props} registrationList={registrationList} />);
         
@@ -234,13 +248,15 @@ describe('<RegistrationForm> tests', () => {
             middleName: "middle",
             lastName: "name",
             gender: "female",
-            claass: "3"
+            claass: "3",
+            id: 0
         }, {
             firstName: "test1",
             middleName: "middle1",
             lastName: "name1",
             gender: "male",
-            claass: "4"
+            claass: "4",
+            id: 1
         }];
         const wrapper = mount(<Registration {...props} registrationList={registrationList} />);
         
@@ -257,13 +273,15 @@ describe('<RegistrationForm> tests', () => {
             middleName: "middle",
             lastName: "name",
             gender: "female",
-            claass: "3"
+            claass: "3",
+            id: 0
         }, {
             firstName: "test1",
             middleName: "middle1",
             lastName: "name1",
             gender: "male",
-            claass: "4"
+            claass: "4",
+            id: 1
         }];
         const wrapper = mount(<Registration {...props} registrationList={registrationList} />);
         
@@ -279,13 +297,15 @@ describe('<RegistrationForm> tests', () => {
             middleName: "middle",
             lastName: "name",
             gender: "female",
-            claass: "3"
+            claass: "3",
+            id: 0
         }, {
             firstName: "test1",
             middleName: "middle1",
             lastName: "name1",
             gender: "male",
-            claass: "4"
+            claass: "4",
+            id: 1
         }];
         const wrapper = mount(<Registration {...props} registrationList={registrationList} />);
         wrapper.find('button#editButton_1').simulate('click',);
@@ -351,13 +371,15 @@ describe('<RegistrationForm> tests', () => {
             middleName: "middle",
             lastName: "name",
             gender: "female",
-            claass: "3"
+            claass: "3",
+            id: 0
         }, {
             firstName: "test1",
             middleName: "middle1",
             lastName: "name1",
             gender: "male",
-            claass: "4"
+            claass: "4",
+            id: 1
         }];
         const wrapper = mount(<Registration {...props} registrationList={registrationList} />);
         wrapper.find('button#editButton_1').simulate('click',);

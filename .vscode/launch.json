@@ -5,6 +5,24 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch via NPM",
+            "request": "launch",
+            "runtimeArgs": [
+                "run-script",
+                "tss"
+            ],
+            "windows": {
+                "runtimeExecutable": "npm.cmd"
+            },
+            "port": "5858",
+            "runtimeExecutable": "npm",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "node"
+        },
+       
+        {
             "type": "node",
             "request": "launch",
             "name": "Jest Current File",
