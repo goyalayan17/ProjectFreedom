@@ -1,0 +1,34 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "module": "esnext",
+        "target": "es2015",
+        "baseUrl": ".",
+        "lib": ["ES2015","DOM","ES2018.Promise"],
+        "paths": {
+            "src/*":["src/*"],
+        },
+        "plugins": [
+            {
+                "transform":"@zerollup/ts-transform-paths"
+            }
+        ],
+        "sourceMap": true,
+        "jsx": "react-jsx",
+        "jsxImportSource": "@emotion/react",
+        "declaration": true,
+        "moduleResolution": "node",
+        "rootDirs": ["src/"],
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "noImplicitReturns": true,
+        "noImplicitThis": false,
+        "noImplicitAny": false,
+        "strictNullChecks": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "noUnusedLocals": true,
+        "resolveJsonModule": true
+    },
+    "include": ["src/**.tsx", "src/**.ts"]
+}

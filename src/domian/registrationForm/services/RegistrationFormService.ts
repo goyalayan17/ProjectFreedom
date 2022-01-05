@@ -1,5 +1,5 @@
 import { IRegistrationForm, IRegistrationFormService } from "../interfaces";
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from 'axios';
 
 export class RegistrationFormService implements IRegistrationFormService {
    

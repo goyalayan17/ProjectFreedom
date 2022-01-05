@@ -1,6 +1,5 @@
 import { call, put } from "@redux-saga/core/effects";
-import { IRegistrationFormDetailsRequestAction, registrationFormDetailSucess, registrationFormEmpty } from "../actions";
-import { IRegistrationForm } from "../interfaces";
+import { IRegistrationFormDetailsRequestAction, registrationFormEmpty } from "../actions";
 import { RegistrationFormService } from "../services";
 
 async function updateRegistrationDetails(payload) {

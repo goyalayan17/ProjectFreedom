@@ -1,6 +1,6 @@
 import { Dispatch } from "@reduxjs/toolkit";
 import { connect } from "react-redux";
-import { registrationDeleteAction, registrationEditAction, registrationFormAction, registrationFormDetailsRequestAction, registrationFormEmpty, registrationListAction, registrationUpdateAction } from "../actions";
+import { registrationDeleteAction, registrationEditAction, registrationFormAction, registrationFormDetailsRequestAction, registrationFormEmpty, registrationUpdateAction } from "../actions";
 import { registrationPostDetailsAction } from "../actions/registrationPostDetailsAction";
 import { Registration } from "../components";
 import { IRegistrationForm, IRegistrationFormGlobalState } from "../interfaces";

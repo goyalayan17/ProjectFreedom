@@ -1,13 +1,10 @@
 import { BaseAction } from "src/domian/common";
 import {
   REGISTRATION_FORM_ADD,
-  REGISTRATION_FORM_DELETE,
   REGISTRATION_FORM_DETAILS_SUCESS,
   REGISTRATION_FORM_EDIT,
-  REGISTRATION_FORM_EMPTY,
-  REGISTRATION_FORM_UPDATE,
+  REGISTRATION_FORM_EMPTY
 } from "../actions";
-import { REGISTRATION_FORM_SUBMIT } from "../actions";
 import { IRegistrationFormInfo } from "../interfaces";
 const defaultRegistrationFormValue = {
   id:undefined,

@@ -1,5 +1,5 @@
 {
-  "name": "freedom.dashboard",
+  "name": "@freedomv1/registrationv2",
   "version": "1.0.0",
   "description": "create a dashboard to learn the react-redux",
   "sideEffects": false,
@@ -9,7 +9,7 @@
   "scripts": {
     "build": "npm run export",
     "export": "npm run build-ts",
-    "build-ts": "node_modules/.bin/ttsc -p tsconfig.json --outDir dist",
+    "build-ts": "node_modules/.bin/ttsc -p tsconfig.build.json --outDir dist",
     "test": "node scripts/test.js --env=jest-environment-jsdom --coverage",
     "storybook": "start-storybook -p 9001",
     "tss": "node --nolazy --inspect-brk=5858 scripts/tss.js"
@@ -106,7 +106,8 @@
     "ttypescript": "^1.5.12",
     "typescript": "^4.2.3",
     "webpack": "^5.64.2",
-    "webpack-cli": "^4.9.1"
+    "webpack-cli": "^4.9.1",
+    "@zerollup/ts-transform-paths": "^1.7.18"
   },
   "dependencies": {
     "@emotion/core": "^11.0.0",
