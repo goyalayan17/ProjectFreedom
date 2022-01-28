@@ -17,7 +17,14 @@
     "lint-local-test": "eslint -c eslint-local-test.js tests/**/* --ext .js,.jsx,.ts,.tsx",
     "pretty": "prettier --write {src,tests,stories}/**/*.{ts,tsx}",
     "pretty-quick": "pretty-quick --staged",
+    "validate-ts": "node_modules/.bin/ttsc -p tsconfig.json --noEmit",
     "tss": "node --nolazy --inspect-brk=5858 scripts/tss.js"
+  },
+  "husky":{
+    "hooks":{
+      "pre-commit": "npm run pretty-quick",
+      "pre-push": "npm run validate-ts"
+    }
   },
   "author": "Ayan Goyal",
   "license": "ISC",
@@ -110,6 +117,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "html-webpack-plugin": "^5.5.0",
+    "husky": "^7.0.4",
     "identity-obj-proxy": "^3.0.0",
     "install": "^0.13.0",
     "jest": "^27.0.6",
@@ -137,5 +145,8 @@
     "@reduxjs/toolkit": "^1.6.1",
     "axios": "^0.21.1",
     "react-redux": "^7.2.4"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": "eslint -c eslintrc.js --fix"
   }
 }
