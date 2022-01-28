@@ -1,0 +1,1 @@
+module.exports = Object.assign(require('./scripts/customRules/no-public-api-references'));

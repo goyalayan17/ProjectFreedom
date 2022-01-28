@@ -1,6 +1,6 @@
-import { IRegistrationForm } from "./IRegistrationForm";
+import { IRegistrationForm } from './IRegistrationForm';
 
 export interface IRegistrationFormInfo {
-    list: IRegistrationForm[];
-    registrationForm: IRegistrationForm;
+	list: IRegistrationForm[];
+	registrationForm: IRegistrationForm;
 }

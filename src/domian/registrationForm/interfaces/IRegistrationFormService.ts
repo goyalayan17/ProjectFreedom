@@ -1,3 +1,1 @@
-export interface IRegistrationFormService {
-    
-}
+export interface IRegistrationFormService {}

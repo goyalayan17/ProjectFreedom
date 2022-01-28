@@ -1,2 +1,2 @@
 export * from './getRegistrationFormInfo';
-export * from './getRegistrationFormListInfo'
+export * from './getRegistrationFormListInfo';

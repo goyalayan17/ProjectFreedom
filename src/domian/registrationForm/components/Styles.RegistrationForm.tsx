@@ -1,23 +1,23 @@
-import { css } from "@emotion/react";
+import { css } from '@emotion/react';
 
 export const headerCss = css`
-    background: purple;
+	background: purple;
 `;
 
 export const formMarginCss = css`
-    margin-top: 50px;
+	margin-top: 50px;
 `;
 
 export const flexCss = css`
-    display: flex;
+	display: flex;
 `;
 
 export const paddingcss = css`
-    padding-top: 15px;
+	padding-top: 15px;
 `;
 export const selectCss = css`
-  margin-top: 10px;
+	margin-top: 10px;
 `;
 export const inputWidthCss = css`
-  width: 100%;
+	width: 100%;
 `;
