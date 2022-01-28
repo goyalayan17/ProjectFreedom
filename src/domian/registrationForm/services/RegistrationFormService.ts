@@ -1,7 +1,7 @@
 import { IRegistrationForm, IRegistrationFormService } from '../interfaces';
 import axios, { AxiosResponse } from 'axios';
 
-export class RegistrationFormService implements IRegistrationFormServi {
+export class RegistrationFormService implements IRegistrationFormService {
 	public async getRegistrationFormDetails(): Promise<IRegistrationForm[]> {
 		const url = 'https://localhost:44383/registration/get';
 		const response: AxiosResponse = await axios.get(url);
