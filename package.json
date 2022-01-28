@@ -18,13 +18,8 @@
     "pretty": "prettier --write {src,tests,stories}/**/*.{ts,tsx}",
     "pretty-quick": "pretty-quick --staged",
     "validate-ts": "node_modules/.bin/ttsc -p tsconfig.json --noEmit",
+    "prepare": "husky install",
     "tss": "node --nolazy --inspect-brk=5858 scripts/tss.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run pretty-quick",
-      "pre-push": "npm run validate-ts"
-    }
   },
   "author": "Ayan Goyal",
   "license": "ISC",
