@@ -16,7 +16,7 @@
     "lint-fix": "eslint -c eslintrc.js --fix src/**/* --ext .js,.jsx,.ts,.tsx",
     "lint-local-test": "eslint -c eslint-local-test.js tests/**/* --ext .js,.jsx,.ts,.tsx",
     "pretty": "prettier --write {src,tests,stories}/**/*.{ts,tsx}",
-    "pretty-quick": "pretty-quick --staged",
+    "pretty-quick": "prettier-quick --staged",
     "validate-ts": "node_modules/.bin/ttsc -p tsconfig.json --noEmit",
     "prepare": "husky install",
     "tss": "node --nolazy --inspect-brk=5858 scripts/tss.js"
@@ -112,7 +112,7 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "html-webpack-plugin": "^5.5.0",
-    "husky": "^7.0.4",
+    "husky": "^7.0.0",
     "identity-obj-proxy": "^3.0.0",
     "install": "^0.13.0",
     "jest": "^27.0.6",

@@ -164,7 +164,8 @@ export const Registration: React.FC<IRegistrationProps> = ({
 										onChange={onChangeHandler}
 										name="claass"
 										value={claass || '0'}
-										css={inputWidthCss}>
+										css={inputWidthCss}
+									>
 										<MenuItem value="0">Select</MenuItem>
 										<MenuItem value="1">One</MenuItem>
 										<MenuItem value="2">Two</MenuItem>
@@ -189,7 +190,8 @@ export const Registration: React.FC<IRegistrationProps> = ({
 										id="genderRadioGroup"
 										onChange={onChangeHandler}
 										value={gender || 'male'}
-										css={inputWidthCss}>
+										css={inputWidthCss}
+									>
 										<FormControlLabel
 											value="male"
 											name="gender"
