@@ -20,8 +20,8 @@
     "validate-ts": "node_modules/.bin/ttsc -p tsconfig.json --noEmit",
     "tss": "node --nolazy --inspect-brk=5858 scripts/tss.js"
   },
-  "husky":{
-    "hooks":{
+  "husky": {
+    "hooks": {
       "pre-commit": "npm run pretty-quick",
       "pre-push": "npm run validate-ts"
     }
